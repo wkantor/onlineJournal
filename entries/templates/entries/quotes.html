@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends 'entries/template.html' %}
+
+{% block content %}
+<br>
+<section class="hero is-black">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        {{ object.text }}
+      </h1>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block content2 %}
+    <div class="column is-one-quarter">
+        <aside class="menu">
+            <ul class="menu-list">
+               {% for quote in rumi %}
+                    {% if quote.key ==  object.text   %}
+				        <li><a>{{ quote.text }}</a></li>
+				        <br>
+                    {% endif %}
+               {% endfor %}
+            </ul>
+        </aside>
+    </div>
+{% endblock %}
