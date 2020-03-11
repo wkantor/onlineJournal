@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends 'entries/quotes.html' %}
+
+{% block content_q %}
+               {% for quote in rumi %}
+                    {% if quote.key ==  object.text   %}
+                        {% if quote.id ==  object_q.id   %}
+	                        {{ quote.text }}
+                        {% endif %}
+                    {% endif %}
+               {% endfor %}
+{% endblock %}

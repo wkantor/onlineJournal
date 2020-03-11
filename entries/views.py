@@ -23,8 +23,6 @@ def common(request):
     
     questions = Question.objects.all()
     quotes = Quote.objects.all()
-    #rumi = Rumi.objects.all()
-    #rumi.append(Mooji.objects.all())
     rumi = list(chain(Rumi.objects.all(), Mooji.objects.all()))
     
     context = {'form' : form, 'questions': questions, 'quotes': quotes,
@@ -42,6 +40,10 @@ def free_writing(request):
     context = common(request)
     return render(request, 'entries/free_writing.html', context)
 
+def about(request):
+    context = common(request)
+    return render(request, 'entries/about.html', context)
+
 def dynamic_question(request, my_id):
     obj = Question.objects.get(id=my_id)
     context = {'object': obj}
@@ -54,6 +56,17 @@ def dynamic_quotes(request, text):
     context = {'object': obj}
     context1 = common(request)
     context.update(context1)
-    def str_to_class(str):
-        return getattr(sys.modules[__name__], str)
-    return render(request, 'entries/quotes.html', context, str_to_class)
+    return render(request, 'entries/quotes.html', context)
+
+def quotes_sp(request,text ,q_id):
+    context = common(request)
+    obj = Quote.objects.get(text=text)
+    context1 = {'object': obj}
+    obj_rumi = Rumi.objects.get(id=q_id)
+    context2 = {'object_q': obj_rumi}
+    obj_mooji = Mooji.objects.get(id=q_id)
+    context3 = {'object_q': obj_mooji}
+    context.update(context1)
+    context.update(context2)
+    context.update(context3)
+    return render(request, 'entries/quotes_sp.html', context)

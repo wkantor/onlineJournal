@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends 'entries/template.html' %}
+{% extends 'entries/template2.html' %}
 
 {% block content %}
 <br>
@@ -9,6 +9,10 @@
       <h1 class="title">
         {{ object.text }}
       </h1>
+      <h2 class="subtitle">
+        {% block content_q %} 
+        {% endblock %}
+      </h2>
     </div>
   </div>
 </section>
@@ -16,12 +20,12 @@
 {% endblock %}
 
 {% block content2 %}
-    <div class="column is-one-quarter">
-        <aside class="menu">
-            <ul class="menu-list">
+    <div class="column is-one-quarter " >
+        <aside class="menu ">
+            <ul class="menu-list " >
                {% for quote in rumi %}
                     {% if quote.key ==  object.text   %}
-				        <li><a>{{ quote.text }}</a></li>
+				        <li><a href="./{{quote.id}}" >{{ quote.text }}</a></li>
 				        <br>
                     {% endif %}
                {% endfor %}
