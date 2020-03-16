@@ -7,6 +7,8 @@ from .models import Question
 from .models import Quote
 from .models import Rumi
 from .models import Mooji
+from .models import Topic
+from .models import Topic_item
 
 # once we hit a url, it asks here, views, what to show the user
 # "redner" displays a template, takes in (request [same as up in definition], and the template)
@@ -21,12 +23,13 @@ def common(request):
         form = EntryForm()
     form = EntryForm()
     
+    topics = Topic.objects.all()
     questions = Question.objects.all()
     quotes = Quote.objects.all()
     rumi = list(chain(Rumi.objects.all(), Mooji.objects.all()))
     
     context = {'form' : form, 'questions': questions, 'quotes': quotes,
-               'rumi': rumi}
+               'rumi': rumi, 'topics': topics }
     
     return context
 
@@ -70,3 +73,21 @@ def quotes_sp(request,text ,q_id):
     context.update(context2)
     context.update(context3)
     return render(request, 'entries/quotes_sp.html', context)
+
+def topics(request, text):
+    obj = Topic.objects.get(text=text)
+    context = {'object': obj, }
+    context1 = common(request)
+    context.update(context1)
+    return render(request, 'entries/topics.html', context)
+
+def topics_sp(request,text, id):
+    obj = Topic.objects.get(text=text)
+    num = obj.topic_item_set.get(id=id)
+    context= {'number': num, 'object': obj}
+    context1 = common(request)
+    context.update(context1)
+    return render(request, 'entries/topics_sp.html', context)
+    
+    
+    

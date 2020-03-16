@@ -53,3 +53,24 @@ class Mooji(models.Model):
      
     class Meta():
         verbose_name_plural = 'Mooji\'s Quotes'
+        
+        
+        
+        
+        
+class Topic(models.Model):
+    text = models.CharField(max_length = 200)
+    
+    def __str__(self):
+        return self.text
+
+    
+class Topic_item(models.Model):
+    item = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    more = models.TextField(max_length = 1000)
+    id = models.AutoField(primary_key=True)
+    
+    def __str__(self):
+        return '{} ¬ {} ~ id{}'.format(self.item, self.more, self.id)
+
+    

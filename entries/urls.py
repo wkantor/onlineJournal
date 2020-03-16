@@ -13,7 +13,10 @@ urlpatterns = [
     path('about', views.about, name= 'about'),
     path('questions/<int:my_id>/', views.dynamic_question, name= 'questions'),
     path('quotes/<str:text>/', views.dynamic_quotes, name= 'quotes'),
-    path('quotes/<str:text>/<int:q_id>', views.quotes_sp, name= 'quotes_sp')
+    path('quotes/<str:text>/<int:q_id>', views.quotes_sp, name= 'quotes_sp'),
+    path('topics/<str:text>/', views.topics, name= 'topics'),
+    path('topics/<str:text>/<int:id>', views.topics_sp, name= 'topics_sp'),
+    
 
 ]
 # when user lands on '' (nothing), it sends him to views.index

@@ -78,6 +78,17 @@
                 <a class="navbar-link">
                   Topics
                 </a>
+                
+                <div class="navbar-dropdown">
+                    
+                    {% for topic in topics %}
+                      <a class="navbar-item" href="/topics/{{topic.text}}" >
+                        {{ topic.text }}
+                      </a>
+                      
+                    {% endfor %}
+        
+                </div>
               </div>
               
               <a class="navbar-item" href="{% url 'home' %}">
@@ -106,6 +117,25 @@
         </div>
       
     </nav>
+    
+    <br>
+	<section class="hero is-black">
+	  <div class="hero-body">
+	    <div class="container">
+	      <h1 class="title">
+	        {% block title %}
+	        {% endblock %}
+	      </h1>
+	      <h2 class="subtitle">
+	        {% block subtitle %} 
+	        {% endblock %}
+	      </h2>
+	    </div>
+	  </div>
+	</section>
+    
+    
+    
     
     
     {% block content %}
