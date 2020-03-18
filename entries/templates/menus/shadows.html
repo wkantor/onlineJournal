@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-{% extends 'entries/template_menu.html' %}
+{% extends 'main/template_menu.html' %}
 
 {% block spec %}
 
-               {% for item in object.topic_item_set.all %}
+               {% for item in object.shadow_item_set.all %}
                         <li><a href="./{{item.id}}" >{{ item.more }}</a></li>
                         <br>
                {% endfor %}

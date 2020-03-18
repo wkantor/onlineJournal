@@ -1,12 +1,11 @@
 
-from django.urls import path, include
+from django.urls import path
 from . import views
-from django.contrib import admin
+
 # . means current module - entries (the folder we are in)
 
 urlpatterns = [
     
-   # path('', include("django.contrib.auth.urls")),
     
     path('', views.index, name= 'home'),
     path('free_writing', views.free_writing, name= 'free_writing'),
@@ -22,6 +21,9 @@ urlpatterns = [
     
     path('shadows/<str:text>/', views.shadows, name= 'shadows'),
     path('shadows/<str:text>/<int:id>', views.shadows_sp, name= 'shadows_sp'),
+    
+    path('register', views.register, name= 'register'),
+    path('register_complete', views.register_complete, name= 'register_complete'),
     
 
 ]

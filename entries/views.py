@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User, auth
+from django.contrib import messages
 import sys
 from itertools import chain
 from .models import Entry
@@ -38,33 +40,33 @@ def common(request):
 
 def index(request):
     context = common(request)
-    return render(request, 'entries/index.html', context)
+    return render(request, 'main/index.html', context)
 
 def free_writing(request):
     context = common(request)
-    return render(request, 'entries/free_writing.html', context)
+    return render(request, 'main/free_writing.html', context)
 
 def about(request):
     context = common(request)
-    return render(request, 'entries/about.html', context)
+    return render(request, 'main/about.html', context)
 
 def history(request):
     context = common(request)
-    return render(request, 'entries/history.html', context)
+    return render(request, 'main/history.html', context)
 
 def dynamic_question(request, my_id):
     obj = Question.objects.get(id=my_id)
     context = {'object': obj}
     context1 = common(request)
     context.update(context1)
-    return render(request, 'entries/questions.html', context)
+    return render(request, 'menus/questions.html', context)
 
 def quotes(request, text):
     obj = Quote.objects.get(text=text)
     context = {'object': obj}
     context1 = common(request)
     context.update(context1)
-    return render(request, 'entries/quotes.html', context)
+    return render(request, 'menus/quotes.html', context)
 
 def quotes_sp(request,text ,id):
     obj = Quote.objects.get(text=text)
@@ -72,14 +74,14 @@ def quotes_sp(request,text ,id):
     context= {'number': num, 'object': obj}
     context1 = common(request)
     context.update(context1)
-    return render(request, 'entries/quotes_sp.html', context)
+    return render(request, 'menus/quotes_sp.html', context)
 
 def topics(request, text):
     obj = Topic.objects.get(text=text)
     context = {'object': obj, }
     context1 = common(request)
     context.update(context1)
-    return render(request, 'entries/topics.html', context)
+    return render(request, 'menus/topics.html', context)
 
 def topics_sp(request,text, id):
     obj = Topic.objects.get(text=text)
@@ -87,14 +89,14 @@ def topics_sp(request,text, id):
     context= {'number': num, 'object': obj}
     context1 = common(request)
     context.update(context1)
-    return render(request, 'entries/topics_sp.html', context)
+    return render(request, 'menus/topics_sp.html', context)
     
 def shadows(request, text):
     obj = Shadow.objects.get(text=text)
     context = {'object': obj, }
     context1 = common(request)
     context.update(context1)
-    return render(request, 'entries/shadows.html', context)
+    return render(request, 'menus/shadows.html', context)
 
 def shadows_sp(request,text, id):
     obj = Shadow.objects.get(text=text)
@@ -102,5 +104,32 @@ def shadows_sp(request,text, id):
     context= {'number': num, 'object': obj}
     context1 = common(request)
     context.update(context1)
-    return render(request, 'entries/shadows_sp.html', context)
+    return render(request, 'menus/shadows_sp.html', context)
+
+def register(request):
+    context = common(request)
     
+    if request.method == 'POST':
+        username = request.POST['username']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        
+        if password1 == password2:
+            if User.objects.filter(username=username).exists():
+                messages.info(request, "Username taken.")
+                return redirect('register')
+            else:
+                user = User.objects.create_user(username=username, password=password1)
+                user.save
+                messages.info(request, "Account created.")
+                return redirect('register_complete')
+        else:
+            messages.info(request, "Passwords not matching.")
+            return redirect('register')
+        
+    else:
+        return render(request, 'accounts/register.html', context)
+    
+def register_complete(request):
+    context = common(request)
+    return render(request, 'accounts/register_complete.html', context)
