@@ -55,6 +55,18 @@
                 <a class="navbar-link">
                   Shadow Work
                 </a>
+                
+                <div class="navbar-dropdown">
+                    
+                    {% for shadow in shadows %}
+                      <a class="navbar-item" href="/shadows/{{shadow.text}}" >
+                        {{ shadow.text }}
+                      </a>
+                      
+                    {% endfor %}
+        
+                </div>
+                
               </div>
 	          
 	          <div class="navbar-item has-dropdown is-hoverable">
@@ -91,7 +103,7 @@
                 </div>
               </div>
               
-              <a class="navbar-item" href="{% url 'home' %}">
+              <a class="navbar-item" href="{% url 'history' %}">
                 History
               </a>
               

@@ -22,40 +22,21 @@ class Question(models.Model):
     def __str__(self):
         return self.text
     
+    
 class Quote(models.Model):
-    text = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
-    id = models.AutoField(primary_key=True)
+    text = models.CharField(max_length = 200)
     
     def __str__(self):
         return self.text
         
-class Rumi(models.Model):
-    text = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+        
+class Quote_item(models.Model):
+    item = models.ForeignKey(Quote, on_delete=models.CASCADE)
+    more = models.TextField(max_length = 1000)
     id = models.AutoField(primary_key=True)
-    key = "Rumi"
-     
+    
     def __str__(self):
-        return "Rumi's #{}".format(self.id)
-     
-    class Meta():
-        verbose_name_plural = 'Rumi\'s Quotes'
-        
-class Mooji(models.Model):
-    text = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
-    id = models.AutoField(primary_key=True)
-    key = "Mooji"
-     
-    def __str__(self):
-        return "Mooji's #{}".format(self.id)
-     
-    class Meta():
-        verbose_name_plural = 'Mooji\'s Quotes'
-        
-        
-        
+        return '{} ¬ {} ~ id{}'.format(self.item, self.more, self.id)  
         
         
 class Topic(models.Model):
@@ -72,5 +53,19 @@ class Topic_item(models.Model):
     
     def __str__(self):
         return '{} ¬ {} ~ id{}'.format(self.item, self.more, self.id)
+    
+    
+class Shadow(models.Model):
+    text = models.CharField(max_length = 200)
+    
+    def __str__(self):
+        return self.text
 
+class Shadow_item(models.Model):
+    item = models.ForeignKey(Shadow, on_delete=models.CASCADE)
+    more = models.TextField(max_length = 1000)
+    id = models.AutoField(primary_key=True)
+    
+    def __str__(self):
+        return '{} ¬ {} ~ id{}'.format(self.item, self.more, self.id)
     

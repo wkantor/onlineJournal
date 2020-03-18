@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends 'entries/template2.html' %}
+
+{% block title %}
+    {{ object.text }}
+{% endblock %}
+
+{% block subtitle %}
+    {% block content_s %} 
+    {% endblock %}
+{% endblock %}
+
+{% block content2 %}
+    <div class="column is-one-quarter " >
+        <aside class="menu ">
+            <ul class="menu-list " >
+                {% block spec %}
+                {% endblock %}
+            </ul>
+        </aside>
+    </div>
+{% endblock %}

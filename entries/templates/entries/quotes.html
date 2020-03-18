@@ -1,27 +1,11 @@
 <!DOCTYPE html>
-{% extends 'entries/template2.html' %}
+{% extends 'entries/template_menu.html' %}
 
-{% block title %}
-    {{ object.text }}
-{% endblock %}
+{% block spec %}
 
-{% block subtitle %}
-	{% block content_q %} 
-	{% endblock %}
-{% endblock %}
-
-
-{% block content2 %}
-    <div class="column is-one-quarter " >
-        <aside class="menu ">
-            <ul class="menu-list " >
-               {% for quote in rumi %}
-                    {% if quote.key ==  object.text   %}
-				        <li><a href="./{{quote.id}}" >{{ quote.text }}</a></li>
-				        <br>
-                    {% endif %}
+               {% for item in object.quote_item_set.all %}
+                        <li><a href="./{{item.id}}" >{{ item.more }}</a></li>
+                        <br>
                {% endfor %}
-            </ul>
-        </aside>
-    </div>
+               
 {% endblock %}
