@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends 'main/template.html' %}
+
+
+
+{% block title %}
+    1-Minute Plunge       
+{% endblock %}
+
+
+
+
+{% block content %}
+
+    <div class="columns ">                       
+        <div class="column" >
+            <section class="section">
+                 <center>
+                 <audio controls>
+                    {% load static %}
+                    <source src="{% static "audio/1-minute-timer.mp3" %}" type="audio/mpeg">    
+                    Your browser does not support the audio element.
+                </audio> 
+                </center>
+            </section>
+        </div>
+        <div class="column is-one-quarter " >
+            <aside class="menu" style="overflow-y:scroll; height:350px;">
+                <ul class="menu-list " >
+	                {% for item in plunges %}
+	                        <br>
+	                        <li><a class="is-active" href="/plunge1/{{item.id}}" >{{ item.text }}</a></li>
+	                {% endfor %}
+                </ul>
+            </aside>
+        </div>
+    </div>
+    {% block comment %}
+        <div class="box">
+	        <center><i> ... </i></center>
+	    </div>
+    {% endblock %}
+    <p> <i> <center> All credit for the Plunge Meditation goes to Edrid from www.sandoth.com.  
+                             See <a href={% url 'about_plunge' %}>here</a> for a full description of the method.</center> </i> </p>
+           
+
+
+{% endblock %}

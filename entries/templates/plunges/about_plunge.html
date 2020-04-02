@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends 'main/template.html' %}
+
+
+
+{% block title %}
+    About Plunge Meditation           
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<div class="columns">
+  <div class="column is-8 is-offset-2" align= 'middle' ">
+    <br>
+        <p> We approach a one-minute meditation as a "plunge." You plunge into it. You cast away, let go of, and drop everything. 
+            You dive in. Your focus is 100% on your topic. You become completely open to the truth that your topic points to. 
+            You allow for complete absorption in your experience of the topic.. There is a list of topics. You can add your own topics as you wish, but the ones supplied here are pretty good. 
+            My advice: do just one, then let it rest. Let hours go by before you do another. </p>
+  </div>
+</div>
+
+{% load static %}
+<center> <iframe width="940px" height="737px" src="{% static "pdf/One-Minute Plunge Meditations.pdf" %}" allowfullscreen="true">
+</iframe> </center>
+<br>
+
+{% endblock %}
+

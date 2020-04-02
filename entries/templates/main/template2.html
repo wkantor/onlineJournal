@@ -10,10 +10,10 @@
             <div class="column">
              <section class="section">
     
-                <form method="POST" >
+                <form method="POST" style= "height:270px;">
                     {% csrf_token %}
                     <div class="field">
-                        <div class="control">
+                        <div class="control" >
                             {{ form.text }}
                         </div>
                     </div>
@@ -24,6 +24,11 @@
                         </div>
                     </div>
                 </form>
+                <div>
+                    {% for message in messages %}
+                        <strong style="color: red;"> {{message}} </strong>
+                    {% endfor %}
+                </div>
              </section>
             </div>
     
@@ -32,7 +37,8 @@
         {% endblock %}
         
     </div>
-
+    {% block comment %}
+    {% endblock %}
 
     
 {% endblock %}

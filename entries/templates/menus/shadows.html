@@ -4,8 +4,14 @@
 {% block spec %}
 
                {% for item in object.shadow_item_set.all %}
-                        <li><a href="./{{item.id}}" >{{ item.more }}</a></li>
                         <br>
+                        <li><a class="is-active" href="./{{item.id}}" >{{ item.more }}</a></li>
                {% endfor %}
                
+{% endblock %}
+
+{% block comment %}
+<div class="box">
+    <center><i> {{object.comment}} </i></center>
+</div>
 {% endblock %}

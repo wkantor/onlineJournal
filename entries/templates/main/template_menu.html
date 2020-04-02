@@ -5,14 +5,10 @@
     {{ object.text }}
 {% endblock %}
 
-{% block subtitle %}
-    {% block content_s %} 
-    {% endblock %}
-{% endblock %}
 
 {% block content2 %}
     <div class="column is-one-quarter " >
-        <aside class="menu ">
+        <aside class="menu " style="overflow-y:scroll; height:350px;">
             <ul class="menu-list " >
                 {% block spec %}
                 {% endblock %}

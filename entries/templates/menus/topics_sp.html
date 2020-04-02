@@ -1,7 +1,36 @@
 <!DOCTYPE html>
 {% extends 'menus/topics.html' %}
 
-{% block content_s %}
+{% block subtitle %}
         <br>
-        <font color="tomato"> {{ number.more }} </font>
+        <font color="tomato"> {{ number.more }} </font>        
+{% endblock %}
+
+
+
+{% block content2 %}
+    <div class="column is-one-quarter " >
+        <aside class="menu " style="overflow-y:scroll; height:350px;">
+            <ul class="menu-list " >
+                {% for item in object.topic_item_set.all %}
+                    <br>
+                    <a class="is-active" href="./{{item.id}}"> {{ item.more }} </a>
+			        {% for item2 in number.topic_item2_set.all %}
+			            {% if item2.parent == item %}
+			                <ul class="menu-list " >
+			                   <br>
+			                   <a  >{{ item2.content }}</a>
+			                </ul>
+			            {% endif %}
+			        {% endfor %}
+                {% endfor %}
+            </ul>
+        </aside>
+    </div>
+{% endblock %}
+
+{% block comment %}
+<div class="box">
+    <center><i> {{number.comment}} </i></center>
+</div>
 {% endblock %}

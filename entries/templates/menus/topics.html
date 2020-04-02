@@ -1,11 +1,30 @@
 <!DOCTYPE html>
-{% extends 'main/template_menu.html' %}
+{% extends 'main/template2.html' %}
 
-{% block spec %}
+{% block title %}
+    {{ object.text }}
+{% endblock %}
 
-               {% for item in object.topic_item_set.all %}
-                        <li><a href="./{{item.id}}" >{{ item.more }}</a></li>
-                        <br>
-               {% endfor %}
-               
+
+{% block content2 %}
+    <div class="column is-one-quarter">
+        <aside class="menu " style="overflow-y:scroll; height:350px;">
+            <ul class="menu-list " >
+                {% for item in object.topic_item_set.all %}
+                    <br>
+                    <a class="is-active"  href="./{{item.id}}"> {{ item.more }} </a>
+                    
+                        
+                {% endfor %}
+            </ul>
+        </aside>
+    </div>
+    
+
+{% endblock %}
+
+{% block comment %}
+<div class="box">
+    <center><i> {{object.comment}} </i></center>
+</div>
 {% endblock %}

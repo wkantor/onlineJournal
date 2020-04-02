@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% extends 'plunges/plunge2.html' %}
+
+{% block subtitle %}
+    <br>
+    <font color="tomato"> {{ object.text }} </font>
+{% endblock %}
+
+
+{% block comment %}
+	<div class="box">
+	    <center><i> {{object.comment}} </i></center>
+	</div>
+{% endblock %}

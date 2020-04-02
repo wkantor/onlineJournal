@@ -14,7 +14,7 @@ class EntryForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # include the default init from ModelForm, initate the original init.py + ...
-        self.fields['text'].widget.attrs.update({'class': 'textarea', 'placeholder': 'What\'s on your mind?'})
+        self.fields['text'].widget.attrs.update({'class': 'textarea', 'placeholder': 'Write here.'})
             # change the attributes of the widget
             # textarea is from the html
         

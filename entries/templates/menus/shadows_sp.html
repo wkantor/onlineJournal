@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 {% extends 'menus/shadows.html' %}
 
-{% block content_s %}
+{% block subtitle %}
         <br>
         <font color="tomato"> {{ number.more }} </font>
+{% endblock %}
+
+{% block comment %}
+<div class="box">
+    <center><i> {{number.comment}} </i></center>
+</div>
 {% endblock %}
