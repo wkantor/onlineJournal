@@ -77,10 +77,26 @@ WSGI_APPLICATION = 'Journal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ltkybrgd',
+        'USER': 'ltkybrgd',
+        'PASSWORD': 'q_a0TTW9n3-JMatz9L3JO3lELHU9WBIE',
+        'HOST': 'kandula.db.elephantsql.com',
+        'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
 
 
 # Password validation
