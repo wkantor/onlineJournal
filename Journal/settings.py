@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,12 +25,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'yr=ix&-vds)z!z92a9d)j07p4*mn_g6f#@506c=e@4!y8++r1#'
+SECRET_KEY = os.environ.get('APP_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS')
 
 
 
@@ -75,25 +80,28 @@ WSGI_APPLICATION = 'Journal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ltkybrgd',
-        'USER': 'ltkybrgd',
-        'PASSWORD': 'q_a0TTW9n3-JMatz9L3JO3lELHU9WBIE',
-        'HOST': 'kandula.db.elephantsql.com',
-        'PORT': '5432',
+        'ENGINE': ('django.db.backends.postgresql'),
+        'NAME': os.environ.get('DB_NAME'),    
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
+
+
 
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'postgres',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '',
+#         'NAME': 'ltkybrgd',
+#         'USER': 'ltkybrgd',
+#         'PASSWORD': 'q_a0TTW9n3-JMatz9L3JO3lELHU9WBIE',
+#         'HOST': 'kandula.db.elephantsql.com',
+#         'PORT': '5432',
 #     }
 # }
 
