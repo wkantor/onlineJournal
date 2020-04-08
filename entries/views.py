@@ -33,6 +33,29 @@ def entry(request, topic):
     else:
         form = EntryForm()
     
+    def form_valid(self, form):
+
+        # get the token submitted in the form
+        recaptcha_response = self.request.POST.get('g-recaptcha-response')
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        payload = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        data = urllib.parse.urlencode(payload).encode()
+        req = urllib.request.Request(url, data=data)
+    
+        # verify the token submitted with the form is valid
+        response = urllib.request.urlopen(req)
+        result = json.loads(response.read().decode())
+    
+        # result will be a dict containing 'success' and 'action'.
+        # it is important to verify both
+    
+        if (not result['success']) or (not result['action'] == 'entry'):  # make sure action matches the one from your template
+            messages.error(self.request, 'Invalid reCAPTCHA. Please try again.')
+            return super().form_invalid(form)
+    
 
 def common(request):
     form = EntryForm() 
@@ -62,6 +85,10 @@ def free_writing(request):
 def about(request):
     context = common(request)
     return render(request, 'main/about.html', context)
+
+def privacy_policy(request):
+    context = common(request)
+    return render(request, 'main/privacy_policy.html', context)
 
 def about_plunge(request):
     context = common(request)

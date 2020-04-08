@@ -11,6 +11,7 @@ urlpatterns = [
     path('free_writing', views.free_writing, name= 'free_writing'),
     path('about', views.about, name= 'about'),
     path('history', views.history, name= 'history'),
+    path('privacy_policy', views.privacy_policy, name= 'privacy_policy'),
     path('questions/<int:my_id>/', views.dynamic_question, name= 'questions'),
     
     path('plunge1', views.plunge1, name= 'plunge1'),

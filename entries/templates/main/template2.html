@@ -23,8 +23,14 @@
                             <button class="button is-link">Save</button>
                         </div>
                     </div>
-                    <script src='https://www.google.com/recaptcha/api.js'></script>
-                    <div class="g-recaptcha" data-sitekey="6LeLuecUAAAAAFF_t9-vUo6Gyxy9KaJgNdHmelsu"></div>
+                    
+                    <script>
+					grecaptcha.ready(function() {
+					    grecaptcha.execute('6LeLuecUAAAAAFF_t9-vUo6Gyxy9KaJgNdHmelsu', {action: 'entry'}).then(function(token) {
+					    	document.getElementById("form").appendChild(document.CreateElement(`<input type="hidden" name="g-recaptcha-response" value=${token}`);					    });
+					});
+					</script>
+					
                 </form>
                 <div>
                     {% for message in messages %}
