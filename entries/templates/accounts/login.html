@@ -21,13 +21,6 @@
                 <input type='text' name='username' placeholder='Username'><br>
                 <input type='password' name='password' placeholder='Password'><br>
                 <input type='Submit' value='Submit'>
-                
-                    <script>
-                    grecaptcha.ready(function() {
-                        grecaptcha.execute('6LeLuecUAAAAAFF_t9-vUo6Gyxy9KaJgNdHmelsu', {action: 'entry'}).then(function(token) {
-                            document.getElementById("form").appendChild(document.CreateElement(`<input type="hidden" name="g-recaptcha-response" value=${token}`);                      });
-                    });
-                    </script>
             </form>
             
             <div>

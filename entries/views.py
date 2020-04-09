@@ -1,3 +1,7 @@
+import urllib
+import json
+
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
@@ -32,29 +36,6 @@ def entry(request, topic):
                 messages.info(request, 'You need to be logged in for this!')
     else:
         form = EntryForm()
-    
-    def form_valid(self, form):
-
-        # get the token submitted in the form
-        recaptcha_response = self.request.POST.get('g-recaptcha-response')
-        url = 'https://www.google.com/recaptcha/api/siteverify'
-        payload = {
-            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-            'response': recaptcha_response
-        }
-        data = urllib.parse.urlencode(payload).encode()
-        req = urllib.request.Request(url, data=data)
-    
-        # verify the token submitted with the form is valid
-        response = urllib.request.urlopen(req)
-        result = json.loads(response.read().decode())
-    
-        # result will be a dict containing 'success' and 'action'.
-        # it is important to verify both
-    
-        if (not result['success']) or (not result['action'] == 'entry'):  # make sure action matches the one from your template
-            messages.error(self.request, 'Invalid reCAPTCHA. Please try again.')
-            return super().form_invalid(form)
     
 
 def common(request):
@@ -206,10 +187,28 @@ def register(request):
                 messages.info(request, "Username taken.")
                 return redirect('register')
             else:
-                user = User.objects.create_user(username=username, password=password1)
-                user.save
-                messages.info(request, "Account created.")
-                return redirect('register_complete')
+                ''' Begin reCAPTCHA validation '''
+                recaptcha_response = request.POST.get('g-recaptcha-response')
+                url = 'https://www.google.com/recaptcha/api/siteverify'
+                values = {
+                    'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                    'response': recaptcha_response
+                }
+                data = urllib.parse.urlencode(values).encode()
+                req =  urllib.request.Request(url, data=data)
+                response = urllib.request.urlopen(req)
+                result = json.loads(response.read().decode())
+                ''' End reCAPTCHA validation '''
+    
+                if result['success']:
+                    
+                    user = User.objects.create_user(username=username, password=password1)
+                    user.save
+                    messages.info(request, "Account created.")
+                    return redirect('register_complete')
+                else:
+                    messages.info(request, 'Invalid reCAPTCHA. Please try again.')
+                    return redirect('register')
         else:
             messages.info(request, "Passwords not matching.")
             return redirect('register')
