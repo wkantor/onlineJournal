@@ -18,6 +18,8 @@ from .models import Topic_item
 from .models import Shadow
 from .models import Shadow_item
 
+
+
 # once we hit a url, it asks here, views, what to show the user
 # "redner" displays a template, takes in (request [same as up in definition], and the template)
 

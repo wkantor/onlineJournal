@@ -17,18 +17,20 @@
                             {{ form.text }}
                         </div>
                     </div>
-        
-                    <div class="field is-grouped is-grouped-right">
-                        <div class="control">
-                            <button class="button is-black">Save</button>
+	                {% if user.is_authenticated %}
+	                    <div class="field is-grouped is-grouped-right">
+	                        <div class="control">
+	                            <button class="button is-black">Save</button>
+	                        </div>
+	                    </div>
+	                {% else %}
+                        <div class="field is-grouped is-grouped-right">
+                            <div class="control">
+                                <button class="button" title="Disabled" disabled>Log in to save</button>
+                            </div>
                         </div>
-                    </div>
+	                {% endif %}
                 </form>
-                <div>
-                    {% for message in messages %}
-                        <strong style="color: red;"> {{message}} </strong>
-                    {% endfor %}
-                </div>
              </section>
             </div>
     
