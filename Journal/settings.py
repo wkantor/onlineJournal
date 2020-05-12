@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get('APP_SECRET_KEY')
 GOOGLE_RECAPTCHA_SECRET_KEY = os.environ.get('GOOGLE_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG')
+DEBUG = False
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
 
