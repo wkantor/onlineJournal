@@ -7,6 +7,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 import sys
 from itertools import chain
+from django.core.mail import send_mail
 from .models import Entry
 from .forms import EntryForm
 from .models import Question
@@ -176,6 +177,7 @@ def shadows_sp(request,text, id):
     context.update(context1)
     return render(request, 'menus/shadows_sp.html', context)
 
+    
 def register(request):
     context = common(request)
     
@@ -183,40 +185,33 @@ def register(request):
         username = request.POST['username']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
+        security = request.POST['security']
+        email = request.POST['email']
         
         if password1 == password2:
-            if User.objects.filter(username=username).exists():
-                messages.info(request, "Username taken.")
-                return redirect('register')
-            else:
-                ''' Begin reCAPTCHA validation '''
-                recaptcha_response = request.POST.get('g-recaptcha-response')
-                url = 'https://www.google.com/recaptcha/api/siteverify'
-                values = {
-                    'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                    'response': recaptcha_response
-                }
-                data = urllib.parse.urlencode(values).encode()
-                req =  urllib.request.Request(url, data=data)
-                response = urllib.request.urlopen(req)
-                result = json.loads(response.read().decode())
-                ''' End reCAPTCHA validation '''
-    
-                if result['success']:
-                    
-                    user = User.objects.create_user(username=username, password=password1)
+            if security == "orange":
+                if User.objects.filter(username=username).exists():
+                    messages.info(request, "Username taken.")
+                    return redirect('register')
+                elif User.objects.filter(email=email).exists():
+                    messages.info(request, "Email already registered.")
+                    return redirect('register')
+                else:
+                    user = User.objects.create_user(username=username, password=password1, email=email)
                     user.save
                     messages.info(request, "Account created.")
-                    return redirect('register_complete')
-                else:
-                    messages.info(request, 'Invalid reCAPTCHA. Please try again.')
-                    return redirect('register')
+                return redirect('register_complete')
+            else:
+                messages.info(request, "Security question answered incorrectly.")
+                return redirect('register')  
         else:
             messages.info(request, "Passwords not matching.")
             return redirect('register')
         
     else:
-        return render(request, 'accounts/register.html', context)
+        return render(request, 'accounts/register.html', context)    
+
+
     
 def register_complete(request):
     context = common(request)
@@ -240,6 +235,26 @@ def login(request):
         
     else:
         return render(request, 'accounts/login.html', context)     
+    
+def forgot_password(request):
+    context = common(request)
+    
+    if request.method == 'POST':
+        email = request.POST['email']
+        
+        if User.objects.filter(email=email).exists():
+            # send email code goes here
+            message = "A user has forgotten his password. The email is: {0} ".format(email)
+            send_mail('FairlyNet - Forgotten password', message, 'fairlynet00@gmail.com', ['fairlynet00@gmail.com'])
+            
+            messages.info(request, "Thank you. You will get a response soon.")
+            return redirect('forgot_password')
+        else:
+            messages.info(request, "No such email was registered.")
+            return redirect('forgot_password')
+    
+    else:
+        return render(request, 'accounts/forgot_password.html', context)
     
 def logout(request):
     auth.logout(request)
